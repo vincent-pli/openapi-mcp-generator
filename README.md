@@ -1,6 +1,9 @@
-# OpenAPI to MCP
+# OpenAPI to MCP Generator
 
 A command-line tool that generates Model Context Protocol (MCP) server code from OpenAPI specifications. This tool helps you quickly create an MCP server that acts as a bridge between LLMs (Large Language Models) and your API.
+
+[![npm version](https://img.shields.io/npm/v/openapi-mcp-generator.svg)](https://www.npmjs.com/package/openapi-mcp-generator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
@@ -13,20 +16,14 @@ A command-line tool that generates Model Context Protocol (MCP) server code from
 ## Installation
 
 ```bash
-# Clone this repository
-git clone https://github.com/yourusername/openapi-to-mcp.git
+# Install globally from npm
+npm install -g openapi-mcp-generator
 
-# Navigate to the project directory
-cd openapi-to-mcp
+# Or with yarn
+yarn global add openapi-mcp-generator
 
-# Install dependencies
-npm install
-
-# Make the script executable
-chmod +x index.js
-
-# Optionally, install globally
-npm install -g .
+# Or with pnpm
+pnpm add -g openapi-mcp-generator
 ```
 
 ## Usage
@@ -34,13 +31,7 @@ npm install -g .
 Generate an MCP server from an OpenAPI specification:
 
 ```bash
-./index.js --openapi path/to/openapi.json --output ./my-mcp-server
-```
-
-Or if installed globally:
-
-```bash
-openapi-to-mcp --openapi path/to/openapi.json --output ./my-mcp-server
+openapi-mcp --openapi path/to/openapi.json --output ./my-mcp-server
 ```
 
 ### Command Line Options
@@ -60,19 +51,19 @@ openapi-to-mcp --openapi path/to/openapi.json --output ./my-mcp-server
 Generate from a local OpenAPI file:
 
 ```bash
-./index.js --openapi ./specs/petstore.json --output ./petstore-mcp
+openapi-mcp --openapi ./specs/petstore.json --output ./petstore-mcp
 ```
 
 Generate from a remote OpenAPI URL:
 
 ```bash
-./index.js --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
+openapi-mcp --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
 ```
 
 Specify a WebSocket transport:
 
 ```bash
-./index.js --openapi ./specs/petstore.json --transport websocket --port 8080
+openapi-mcp --openapi ./specs/petstore.json --transport websocket --port 8080
 ```
 
 ## Generated Files
@@ -116,10 +107,45 @@ After generating your MCP server:
    npm start
    ```
 
+## Programmatic Usage
+
+You can also use the package programmatically in your Node.js projects:
+
+```javascript
+const { generateMcpServer } = require('openapi-mcp-generator');
+
+// Using async/await
+async function generate() {
+  try {
+    const result = await generateMcpServer({
+      openapi: './specs/petstore.json',
+      output: './petstore-mcp',
+      transport: 'http',
+      port: 3000
+    });
+    console.log(`MCP server generated at: ${result.outputPath}`);
+  } catch (error) {
+    console.error('Generation failed:', error);
+  }
+}
+
+generate();
+```
+
 ## Requirements
 
 - Node.js 16.x or higher
 - npm 7.x or higher
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
