@@ -1,0 +1,30 @@
+{
+    "name": "openapi-mcp-generator",
+    "version": "1.0.0",
+    "description": "Generate MCP server code from OpenAPI specifications",
+    "type": "module",
+    "main": "src/index.js",
+    "bin": {
+        "openapi-mcp-generator": "./src/index.js"
+    },
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "openapi",
+        "mcp",
+        "model-context-protocol",
+        "generator",
+        "llm"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.6.0",
+        "minimist": "^1.2.8"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    }
+}
