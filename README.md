@@ -107,31 +107,6 @@ After generating your MCP server:
    npm start
    ```
 
-## Programmatic Usage
-
-You can also use the package programmatically in your Node.js projects:
-
-```javascript
-const { generateMcpServer } = require('openapi-mcp-generator');
-
-// Using async/await
-async function generate() {
-  try {
-    const result = await generateMcpServer({
-      openapi: './specs/petstore.json',
-      output: './petstore-mcp',
-      transport: 'http',
-      port: 3000
-    });
-    console.log(`MCP server generated at: ${result.outputPath}`);
-  } catch (error) {
-    console.error('Generation failed:', error);
-  }
-}
-
-generate();
-```
-
 ## Requirements
 
 - Node.js 16.x or higher
