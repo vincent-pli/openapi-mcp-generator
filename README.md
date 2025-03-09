@@ -31,7 +31,7 @@ pnpm add -g openapi-mcp-generator
 Generate an MCP server from an OpenAPI specification:
 
 ```bash
-openapi-mcp --openapi path/to/openapi.json --output ./my-mcp-server
+openapi-mcp-generator --openapi path/to/openapi.json --output /Path/to/output
 ```
 
 ### Command Line Options
@@ -51,19 +51,19 @@ openapi-mcp --openapi path/to/openapi.json --output ./my-mcp-server
 Generate from a local OpenAPI file:
 
 ```bash
-openapi-mcp --openapi ./specs/petstore.json --output ./petstore-mcp
+openapi-mcp-generator --openapi ./specs/petstore.json --output ./petstore-mcp
 ```
 
 Generate from a remote OpenAPI URL:
 
 ```bash
-openapi-mcp --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
+openapi-mcp-generator --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
 ```
 
 Specify a WebSocket transport:
 
 ```bash
-openapi-mcp --openapi ./specs/petstore.json --transport websocket --port 8080
+openapi-mcp-generator --openapi ./specs/petstore.json --transport websocket --port 8080
 ```
 
 ## Generated Files
