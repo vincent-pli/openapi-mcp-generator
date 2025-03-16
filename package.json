@@ -1,6 +1,6 @@
 {
     "name": "openapi-mcp-generator",
-    "version": "1.0.1",
+    "version": "1.0.4",
     "description": "Generate MCP server code from OpenAPI specifications",
     "type": "module",
     "main": "src/index.js",
