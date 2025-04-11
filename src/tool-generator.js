@@ -8,6 +8,50 @@ function generateToolId(method, path) {
     return `${method.toUpperCase()}-${cleanPath}`.replace(/[^a-zA-Z0-9-]/g, '-');
 }
 
+function getComponentPath(fullPath) {
+    return fullPath.split("/").pop()
+}
+
+function generateSchemabyComponent(spec, componentPath) {
+    const component = spec.components?.schemas[componentPath]
+    let toolInputSchema = {
+        type: 'object',
+        properties: {},
+        required: [],
+    }
+    for (const [propName, propSchema] of Object.entries(component.properties)) {
+        if (propSchema["$ref"]) {
+            toolInputSchema.properties[propName] = generateSchemabyComponent(spec, getComponentPath(propSchema["$ref"]))
+            continue
+        }
+
+        toolInputSchema.properties[propName] = {
+            type: propSchema.type || 'string',
+            description: propSchema.description || `${propName} property`,
+        };
+        if (propSchema.type == 'array') {
+            let items = {}
+            if (propSchema.items['$ref']) {
+                items = generateSchemabyComponent(spec, getComponentPath(propSchema.items['$ref']))
+            } else {
+                items.type = propSchema.items.type
+            }
+            toolInputSchema.properties[propName].items = items
+        }
+
+        // Add enum values if present
+        if (propSchema.enum) {
+            toolInputSchema.properties[propName].enum = propSchema.enum;
+        }
+    }
+
+    // Add required properties
+    if (component.required && Array.isArray(component.required)) {
+        toolInputSchema.required.push(...component.required);
+    }
+
+    return toolInputSchema
+}
 /**
  * Generate tool definitions from OpenAPI paths
  */
@@ -70,6 +114,16 @@ function generateTools(spec, verbose = false) {
                             description: param.description || `${param.name} parameter`,
                         };
 
+                        if (paramSchema?.type == 'array') {
+                            let items = {}
+                            if (paramSchema?.items['$ref']) {
+                                items = generateSchemabyComponent(spec, getComponentPath(paramSchema?.items['$ref']))
+                            } else {
+                                items.type = paramSchema?.items.type
+                            }
+                            tool.inputSchema.properties[param.name].items = items
+                        }
+
                         // Add enum values if present
                         if (paramSchema?.enum) {
                             tool.inputSchema.properties[param.name].enum = paramSchema.enum;
@@ -108,6 +162,10 @@ function generateTools(spec, verbose = false) {
                         if (bodySchema.required && Array.isArray(bodySchema.required)) {
                             tool.inputSchema.required.push(...bodySchema.required);
                         }
+                    }
+                    else if (bodySchema?.["$ref"]) {
+                        console.log("xxxxxxxxxx")
+                        tool.inputSchema = {...tool.inputSchema, ...generateSchemabyComponent(spec, getComponentPath(bodySchema?.["$ref"]))}
                     }
                 }
             }

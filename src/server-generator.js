@@ -18,8 +18,15 @@ import {
   CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
 // Load environment variables
-dotenvConfig();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const dotenvPath = path.resolve(__dirname, ".env");
+
+dotenvConfig({ path: dotenvPath });
 
 // Define tool schemas
 const TOOLS = ${JSON.stringify(toolsArray, null, 2)};
@@ -50,7 +57,7 @@ class MCPServer {
       },
       {
         capabilities: {
-          tools: true, // Enable tools capability
+          tools: {}, // Enable tools capability
         },
       }
     );
