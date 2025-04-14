@@ -153,8 +153,8 @@ class MCPServer {
         return {
           content: [
             {
-              type: "application/json",
-              data: result
+              type: "text",
+              text: JSON.stringify(result)
             }
           ]
         };

@@ -164,7 +164,6 @@ function generateTools(spec, verbose = false) {
                         }
                     }
                     else if (bodySchema?.["$ref"]) {
-                        console.log("xxxxxxxxxx")
                         tool.inputSchema = {...tool.inputSchema, ...generateSchemabyComponent(spec, getComponentPath(bodySchema?.["$ref"]))}
                     }
                 }
