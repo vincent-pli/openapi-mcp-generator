@@ -2,7 +2,7 @@
 
 A command-line tool that generates Model Context Protocol (MCP) server code from OpenAPI specifications. This tool helps you quickly create an MCP server that acts as a bridge between LLMs (Large Language Models) and your API.
 
-[![npm version](https://img.shields.io/npm/v/openapi-mcp-generator.svg)](https://www.npmjs.com/package/openapi-mcp-generator)
+[![npm version](https://img.shields.io/npm/v/openapi-mcpserver-generator.svg)](https://www.npmjs.com/package/openapi-mcpserver-generator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
@@ -17,13 +17,13 @@ A command-line tool that generates Model Context Protocol (MCP) server code from
 
 ```bash
 # Install globally from npm
-npm install -g openapi-mcp-generator
+npm install -g openapi-mcpserver-generator
 
 # Or with yarn
-yarn global add openapi-mcp-generator
+yarn global add openapi-mcpserver-generator
 
 # Or with pnpm
-pnpm add -g openapi-mcp-generator
+pnpm add -g openapi-mcpserver-generator
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ pnpm add -g openapi-mcp-generator
 Generate an MCP server from an OpenAPI specification:
 
 ```bash
-openapi-mcp-generator --openapi path/to/openapi.json --output /Path/to/output
+openapi-mcpserver-generator --openapi path/to/openapi.json --output /Path/to/output
 ```
 
 ### Command Line Options
@@ -51,19 +51,19 @@ openapi-mcp-generator --openapi path/to/openapi.json --output /Path/to/output
 Generate from a local OpenAPI file:
 
 ```bash
-openapi-mcp-generator --openapi ./specs/petstore.json --output ./petstore-mcp
+openapi-mcpserver-generator --openapi ./specs/petstore.json --output ./petstore-mcp
 ```
 
 Generate from a remote OpenAPI URL:
 
 ```bash
-openapi-mcp-generator --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
+openapi-mcpserver-generator --openapi https://petstore3.swagger.io/api/v3/openapi.json --output ./petstore-mcp
 ```
 
 Specify a WebSocket transport:
 
 ```bash
-openapi-mcp-generator --openapi ./specs/petstore.json --transport websocket --port 8080
+openapi-mcpserver-generator --openapi ./specs/petstore.json --transport websocket --port 8080
 ```
 
 ## Generated Files

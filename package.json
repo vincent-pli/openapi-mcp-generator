@@ -1,11 +1,11 @@
 {
-    "name": "openapi-mcp-generator",
-    "version": "1.0.4",
+    "name": "openapi-mcpserver-generator",
+    "version": "1.0.0",
     "description": "Generate MCP server code from OpenAPI specifications",
     "type": "module",
     "main": "src/index.js",
     "bin": {
-        "openapi-mcp-generator": "./src/index.js"
+        "openapi-mcpserver-generator": "./src/index.js"
     },
     "scripts": {
         "start": "node src/index.js",
@@ -13,7 +13,7 @@
     },
     "keywords": [
         "openapi",
-        "mcp",
+        "mcpserver",
         "model-context-protocol",
         "generator",
         "llm"
@@ -22,16 +22,14 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/harsha-iiiv/openapi-mcp-generator.git"
+        "url": "git+https://github.com/vincent-pli/openapi-mcp-generator"
     },
-    "bugs": {
-        "url": "https://github.com/harsha-iiiv/openapi-mcp-generator/issues"
-    },
-    "homepage": "https://github.com/harsha-iiiv/openapi-mcp-generator#readme",
+    "homepage": "https://github.com/vincent-pli/openapi-mcp-generator#readme",
     "dependencies": {
         "axios": "^1.6.0",
+        "chalk": "^5.3.0",
         "minimist": "^1.2.8",
-        "chalk": "^5.3.0"
+        "openapi-mcpserver-generator": "^1.0.0"
     },
     "engines": {
         "node": ">=16.0.0"
