@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // Basic imports using ES module syntax
+import chalk from "chalk";
 import minimist from 'minimist';
 import fs from 'fs';
 import { mkdir } from 'fs/promises';
@@ -19,6 +20,7 @@ import {
     generateBuildScript
 } from './config-generator.js';
 import { copyTemplateFile } from './file-utils.js';
+import { generateServerConf } from './utils.js';
 
 // Get proper paths for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -131,6 +133,11 @@ async function main() {
             copyTemplateFile('build.js', buildScript, config.outputDir, config.verbose)
         ]);
 
+        // Configuration for MCP server for client
+        const serverName = path.basename(config.outputDir)
+        const absolutePath = path.resolve(config.outputDir);
+        const serverConfig = await generateServerConf(absolutePath)
+        const fullConfig = { mcpServers: { [serverName]: serverConfig } };
         const success = results.every(Boolean);
 
         if (success) {
@@ -143,6 +150,9 @@ async function main() {
             console.log('4. Run the server:');
             console.log('   - JavaScript version: npm start');
             console.log('   - TypeScript version: npm run start:ts');
+            console.log('5. Config the client:')
+            console.log(
+                `   To add the MCP server manually, add the following config to your MCP config-file:\n\n${chalk.yellow(JSON.stringify(fullConfig, null, 2))}`)
         } else {
             console.error("❌ Some files failed to generate. Check the errors above.");
         }

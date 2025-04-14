@@ -30,7 +30,8 @@
     "homepage": "https://github.com/harsha-iiiv/openapi-mcp-generator#readme",
     "dependencies": {
         "axios": "^1.6.0",
-        "minimist": "^1.2.8"
+        "minimist": "^1.2.8",
+        "chalk": "^5.3.0"
     },
     "engines": {
         "node": ">=16.0.0"
