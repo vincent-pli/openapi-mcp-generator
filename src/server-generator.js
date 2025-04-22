@@ -16,6 +16,7 @@ import { config as dotenvConfig } from "dotenv";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
+  InitializedNotificationSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
 import { fileURLToPath } from 'url';
@@ -41,6 +42,7 @@ class MCPServer {
   constructor() {
     // Initialize class properties
     this.server = null;
+    this.isConnected = false;
     this.tools = new Map();
     this.debug = process.env.DEBUG === "true";
     this.baseUrl = process.env.API_BASE_URL || "";
@@ -58,6 +60,7 @@ class MCPServer {
       {
         capabilities: {
           tools: {}, // Enable tools capability
+          logging: {}, //Enable logging capability
         },
       }
     );
@@ -103,6 +106,11 @@ class MCPServer {
    * Set up request handlers
    */
   setupHandlers() {
+    this.server.setNotificationHandler(InitializedNotificationSchema, async (request) => {
+      this.log('debug', "Handling notifications/initialized request");
+      // mark isConnected is True
+      this.isConnected = true
+    });
     // Handle tool listing requests
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       this.log('debug', "Handling ListTools request");
