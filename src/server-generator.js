@@ -331,7 +331,7 @@ class MCPServer {
     if (this.debug || level !== 'debug') {
       try {
         // Only send if server exists and is connected
-        if (this.server && this.server.isConnected) {
+        if (this.server && this.isConnected) {
           this.server.sendLoggingMessage({
             level,
             data: \`[MCP Server] \${message}\${data ? ': ' + JSON.stringify(data) : ''}\`
