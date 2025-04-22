@@ -100,7 +100,7 @@ class MCPServer {
     }
 
     // Don't log here, we're not connected yet
-    console.error(\`Initialized \${this.tools.size} tools\`);
+    this.log('info', \`Initialized \${this.tools.size} tools\`);
   }
 
   /**
@@ -331,8 +331,6 @@ class MCPServer {
    */
   log(level, message, data) {
     // Always log to stderr for visibility
-    console.error(\`[\${level.toUpperCase()}] \${message}\${data ? ': ' + JSON.stringify(data) : ''}\`);
-
     // Only try to send via MCP if we're in debug mode or it's important
     if (this.debug || level !== 'debug') {
       try {
@@ -357,13 +355,12 @@ class MCPServer {
     try {
       // Create stdio transport
       const transport = new StdioServerTransport();
-      console.error("MCP Server starting on stdio transport");
+      this.log('info', "MCP Server starting on stdio transport");
 
       // Connect to the transport
       await this.server.connect(transport);
 
       // Now we can safely log via MCP
-      console.error(\`Registered \${this.tools.size} tools\`);
       this.log('info', \`MCP Server started successfully with \${this.tools.size} tools\`);
     } catch (error) {
       console.error("Failed to start MCP server:", error);
